@@ -1,4 +1,3 @@
-````md
 # 🏛️ Sistema de Fiscalización Inteligente DS4PS
 
 Proyecto desarrollado con **FastAPI** y **Streamlit** para simular un sistema de soporte de decisiones orientado a la fiscalización de actividades económicas.
@@ -284,4 +283,3 @@ Proyecto educativo desarrollado para prácticas de:
 - Sistemas de soporte de decisiones
 
 ---
-````
