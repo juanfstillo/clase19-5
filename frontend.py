@@ -6,39 +6,47 @@ import pandas as pd
 st.title("🏛️ Tablero de Fiscalización Inteligente DS4PS")
 st.markdown("Sistema de Soporte de Decisiones para Asignación de Recursos")
 
-# 2. Interfaz de usuario (El control del Ministro)
+# 2. Interfaz de usuario
 estrategia_elegida = st.selectbox(
     "Seleccione Doctrina Política para el operativo", 
-    ["impacto", "eficiencia"]
+    ["impacto", "eficiencia", "visibilidad"] # Agregada 'visibilidad' que tenés en el backend
 )
 
 # 3. El Botón de Acción
 if st.button("Ejecutar Algoritmo de Priorización"):
 
-    # A. Preparamos la llamada a la API (El "Teléfono Rojo")
+    # A. Llamada a la API
     url_api = f"http://127.0.0.1:8080/priorizar/{estrategia_elegida}"
-
-    # B. Armamos nuestra credencial de acceso (El Header de seguridad)
     credenciales = {"x-api-key": "ClaveSecreta123"}
 
-    # C. Hacemos la petición GET
-    respuesta = requests.get(url_api, headers=credenciales)
+    try:
+        respuesta = requests.get(url_api, headers=credenciales)
 
-    # 4. Procesamiento de la respuesta
-    if respuesta.status_code == 200:
-        datos = respuesta.json()
-        st.success(f"✅ Estrategia aplicada exitosamente: {datos['estrategia_aplicada'].upper()}")
+        # 4. Procesamiento de la respuesta
+        if respuesta.status_code == 200:
+            datos = respuesta.json()
+            ranking = datos.get("ranking_operativos", [])
+            
+            # --- VALIDACIÓN DE SEGURIDAD: ¿Hay datos? ---
+            if ranking:
+                st.success(f"✅ Estrategia aplicada: {datos['estrategia_aplicada'].upper()}")
+                
+                df_resultados = pd.DataFrame(ranking)
 
-        # Convertimos la lista de zonas a un DataFrame de Pandas para verlo lindo
-        df_resultados = pd.DataFrame(datos["ranking_operativos"])
+                # Mostramos la tabla
+                st.subheader("Ranking de Prioridad")
+                st.dataframe(df_resultados, use_container_width=True)
 
-        # Mostramos la tabla interactiva
-        st.subheader("Ranking de Prioridad")
-        st.dataframe(df_resultados, use_container_width=True)
+                # Mostramos el gráfico
+                st.subheader("Costo Operativo por Zona")
+                st.bar_chart(data=df_resultados, x="nombre", y="costo", color="#360d0d")
+            else:
+                st.warning("⚠️ La API respondió correctamente, pero no hay zonas cargadas en la base de datos.")
+        
+        elif respuesta.status_code == 401:
+            st.error("🚨 Acceso Denegado. Verifique sus credenciales.")
+        else:
+            st.error(f"🚨 Error en el servidor: {respuesta.status_code}")
 
-        # Mostramos un gráfico para visualizar rápido el presupuesto necesario
-        st.subheader("Costo Operativo por Zona")
-        st.bar_chart(data=df_resultados, x="nombre", y="costo", color="#360d0d")
-
-    else:
-        st.error("🚨 Acceso Denegado. Verifique sus credenciales ministeriales.")
+    except requests.exceptions.ConnectionError:
+        st.error("🚨 No se pudo conectar al Backend. ¿Está encendido el servidor en el puerto 8080?")
