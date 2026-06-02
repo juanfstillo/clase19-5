@@ -16,7 +16,7 @@ estrategia_elegida = st.selectbox(
 if st.button("Ejecutar Algoritmo de Priorización"):
 
     # A. Preparamos la llamada a la API (El "Teléfono Rojo")
-    url_api = f"http://127.0.0.1:8000/priorizar/{estrategia_elegida}"
+    url_api = f"http://127.0.0.1:8080/priorizar/{estrategia_elegida}"
 
     # B. Armamos nuestra credencial de acceso (El Header de seguridad)
     credenciales = {"x-api-key": "ClaveSecreta123"}
