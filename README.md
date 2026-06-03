@@ -22,12 +22,14 @@ Esta versión actualiza el sistema para incluir persistencia de datos mediante *
 
 # 📂 Estructura del proyecto
 
+```bash
 .
-├── main.py # Backend FastAPI y ruteo
-├── frontend.py # Frontend Streamlit (Dashboard)
-├── database.py # Configuración de conexión SQLite y modelo ORM
-├── esquemas.py # Modelos de validación de datos (Pydantic)
-├── estrategias.py # Lógica de cálculo de prioridad (Patrón Strategy)
-├── .env.example # Plantilla para variables de entorno de seguridad
-├── ministerio.db # Archivo físico de la base de datos local (SQLite)
+├── main.py          # Backend FastAPI y ruteo
+├── frontend.py      # Frontend Streamlit (Dashboard)
+├── database.py      # Configuración de conexión SQLite y modelo ORM
+├── esquemas.py      # Modelos de validación de datos (Pydantic)
+├── estrategias.py   # Lógica de cálculo de prioridad (Patrón Strategy)
+├── .env.example     # Plantilla para variables de entorno de seguridad
+├── ministerio.db    # Archivo físico de la base de datos local (SQLite)
 └── README.md
+```
