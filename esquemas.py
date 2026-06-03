@@ -5,3 +5,7 @@ class Zona(BaseModel):
     riesgo: float
     poblacion: int
     costo: float
+
+
+
+    
