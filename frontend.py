@@ -16,8 +16,8 @@ estrategia_elegida = st.selectbox(
 if st.button("Ejecutar Algoritmo de Priorización"):
 
     # A. Llamada a la API
-    url_api = f"https://clase19-5.onrender.com/{estrategia_elegida}"
-    credenciales = {"x-api-key": "ClaveSecreta123"}
+    url_api = f"https://clase19-5.onrender.com/priorizar/{estrategia_elegida}"
+    credenciales = {"x-api-key": "52147130631e9652995beb2eb4ab52d0"}
 
     try:
         respuesta = requests.get(url_api, headers=credenciales)
