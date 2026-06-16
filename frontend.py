@@ -16,7 +16,7 @@ estrategia_elegida = st.selectbox(
 if st.button("Ejecutar Algoritmo de Priorización"):
 
     # A. Llamada a la API
-    url_api = f"https://prueba-kzld.onrender.com/{estrategia_elegida}"
+    url_api = f"https://prueba-kzld.onrender.com/priorizar/{estrategia_elegida}"
     credenciales = {"x-api-key": "269c0715f99839b174c991f3a24c4c4c"}
 
     try:
